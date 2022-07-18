@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="svg-slide.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/languages/rust.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/languages/llvm.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/languages/makefile.min.js"></script>
+
+  <script>
+    hljs.highlightAll();
+    hljs.initLineNumbersOnLoad();
+  </script>
+
+  <title>svg-slide</title>
+  <meta name="keywords" content=""/>
+  <meta name="date" content="2022-07-19"/>
+
+  <style type="text/css">
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+
+
+<h1 id="svg-slide">svg-slide</h1>
+<p>コンセプト : WEB-friendly な資料作成</p>
+<ul>
+<li>ページの概念を持ったSVGエディタ/ビューアを作成した</li>
+<li>SVGの仕様内でページの概念を実現</li>
+</ul>
+<h2 id="背景">背景</h2>
+<ul>
+<li>リモート化の促進</li>
+<li>資料をオンライン共有する機会が増加</li>
+</ul>
+<p>例えば…</p>
+<ul>
+<li>学生: 期末試験を取りやめ発表課題が課されるように</li>
+<li>先生: 黒板を使った対面授業から遠隔授業へ</li>
+<li>研究室の進捗報告も遠隔で</li>
+</ul>
+<p>リモートの発表と言えばプレゼンソフトが主流だが…?</p>
+<h3 id="プレゼンソフト">プレゼンソフト</h3>
+<h4 id="プレゼンソフトの利点">プレゼンソフトの利点</h4>
+<ul>
+<li>図表を駆使したインパクトのある発表に向いている</li>
+<li>大きなスクリーン全面にばばーんと文字や画像を表示できる</li>
+<li>変化に意識が向きやすい
+<ul>
+<li>ページ間で変わっていない部分は画面上で変化しない</li>
+</ul></li>
+</ul>
+<h4 id="プレゼンソフトの問題点">プレゼンソフトの問題点</h4>
+<p><strong>講義資料等の説明的な資料の作成に向かない</strong></p>
+<ul>
+<li>プレゼンソフトのスライドは発表を補助するもの
+<ul>
+<li>見返して全ての内容を詳細に<strong>復習しにくい</strong></li>
+</ul></li>
+</ul>
+
+<p><strong>ブラウザとの親和性が低い</strong></p>
+<ul>
+<li>pptx ファイル や PDF の DL は面倒
+<ul>
+<li>授業ごとに t2schola 等を開いて資料をDLするのは億劫</li>
+<li>ブラウザで資料を開けると嬉しい</li>
+</ul></li>
+</ul>
+<p>ブラウザといえば HTMLだが…?</p>
+<h3 id="html">HTML</h3>
+<p><strong>利点</strong></p>
+<ul>
+<li>ブラウザとの親和性が高い</li>
+</ul>
+<p><strong>問題点</strong></p>
+<ul>
+<li>パラパラ漫画が作りにくい</li>
+<li>n 枚からなるパラパラ漫画の作成には n 個のファイルが必要
+<ul>
+<li>修正・編集も n 個のファイルに跨がり面倒</li>
+</ul></li>
+</ul>
+<p>パラパラ漫画の例 :</p>
+<div class="svg-slide" src="dfs.svg" width="400px"></div>
+
+<h2 id="svg-slide-1">svg-slide</h2>
+<div class="box x-large center">
+<p><strong>svg-slide
+はこうしたパラパラ漫画を簡単に作るためのツール</strong></p>
+</div>
+<p><strong>WEB-friendly な資料作成</strong></p>
+<ul>
+<li>HTML 資料の<strong>作成効率 &amp; 完成度UP</strong></li>
+</ul>
+<p><strong>純粋な svg</strong></p>
+<ul>
+<li>ブラウザと親和性がある</li>
+<li>ファイル1つで任意枚からなるパラパラ漫画を表せる</li>
+<li>テキストエディタでも編集できる</li>
+</ul>
+<p><strong>想定する使い道</strong></p>
+<ul>
+<li>講義資料などの文書ライクな資料を HTML で作成する用途</li>
+</ul>
+<br>
+
+<div class="note">
+<p>今回の発表のような「アピール」が求められる資料にはスライドの方が向いているだろう。<br>
+しかし、今回は「HTML製の発表資料」を体感してもらうために<strong>あえて</strong>HTMLの資料を作成した。</p>
+</div>
+<h2 id="機能説明--デモ">機能説明 &amp; デモ</h2>
+<p>svg-slide は editor と viewer から構成される。</p>
+<ul>
+<li>Editor : スライドの作成・編集を行う TypeScript 製ウェブアプリ</li>
+<li>Viewer : スライドを閲覧するための JavaScript コード</li>
+</ul>
+<h3 id="editor-の機能">Editor の機能</h3>
+<ul>
+<li>図形やテキストの追加・削除・移動</li>
+<li>色や角度といったプロパティの設定</li>
+<li>画像の読み込み</li>
+<li>テンプレ機能 (要件変更)
+<ul>
+<li>パラメータは現状指定できない。 (e.g. 要素数 n
+のリストは作れない)</li>
+</ul></li>
+</ul>
+<p>[デモ]</p>
+<iframe src="svg-slide/index.html" width="90%" height="750px"></iframe>
+
+<h3 id="viewer-の機能--特徴">Viewer の機能 &amp; 特徴</h3>
+<p><strong>利用が簡単</strong><br> Editor
+で作成したファイルを表示するには次の HTML を書くだけでよい。</p>
+
+<figure><pre><code class="html">&lt;!-- &lt;script type=&quot;text/javascript&quot; src=&quot;svg-slide.js&quot;&gt;&lt;/script&gt; --&gt;
+&lt;div class=&quot;svg-slide&quot; src=&quot;slide.svg&quot;&gt;&lt;/div&gt;</code></pre></figure>
+<br>
+
+<p><strong>表示スタイル変更 (要件変更)</strong><br> 2
+つの利用シーンに合わせて表示スタイルを変更できる。</p>
+<ul>
+<li><strong>講義での利用 → スライド表示</strong>
+<ul>
+<li>パラパラ漫画によって差分に意識が向きやすく</li>
+</ul></li>
+<li><strong>振り返りでの利用 → 一覧表示</strong>
+<ul>
+<li>一覧表示にして二分探索することで必要な情報を効率的に見つけられる</li>
+</ul></li>
+</ul>
+<p>[デモ]</p>
+<div class="svg-slide" src="dfs.svg" width="400px"></div>
+
+<h2 id="仕組み">仕組み</h2>
+<h3 id="editor-の仕組み">Editor の仕組み</h3>
+<ul>
+<li>TypeScript 製 web アプリ (front-end only)</li>
+<li>DOM 操作によりブラウザ上で SVG を編集
+<ul>
+<li>編集時も SVG なので表示時に崩れない</li>
+</ul></li>
+</ul>
+<h3 id="viewer-の仕組み">Viewer の仕組み</h3>
+<ul>
+<li>JavaScript製表示ソフト</li>
+<li>svg の <code>symbol</code> 要素をページに見立てる</li>
+</ul>
+
+<figure><figcaption class="code-caption">2ページあるスライド</figcaption><pre><code class="svg">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0, 0, 600, 400&quot;&gt;
+  &lt;symbol id=&quot;slide1&quot;&gt;
+    &lt;rect x=&quot;89&quot; y=&quot;83&quot; width=&quot;148&quot; height=&quot;144&quot; style=&quot;fill: rgb(128, 128, 128); stroke: rgb(0, 0, 0); stroke-width: 3px; stroke-dasharray: 0px, 0px;&quot;&gt;&lt;/rect&gt;
+  &lt;/symbol&gt;
+  &lt;symbol id=&quot;slide2&quot;&gt;
+    &lt;ellipse cx=&quot;209&quot; cy=&quot;203&quot; rx=&quot;57&quot; ry=&quot;57&quot; style=&quot;fill: rgb(128, 128, 128); stroke: rgb(0, 0, 0); stroke-width: 3px; stroke-dasharray: 0px, 0px;&quot;&gt;&lt;/ellipse&gt;
+    &lt;polygon points=&quot;388.05553499465134,227 313,357 463.1110699893027,357&quot; style=&quot;fill: rgb(128, 128, 128); stroke: rgb(0, 0, 0); stroke-width: 3px; stroke-dasharray: 0px, 0px;&quot;&gt;&lt;/polygon&gt;
+  &lt;/symbol&gt;
+&lt;/svg&gt;</code></pre></figure>
+<p>Viewer は、表示する <code>symbol</code>
+を動的に替えることでページの移動を実現。</p>
+<div class="note">
+<p>(余談)<br> 本来 <code>symbol</code> 要素は次のように <code>use</code>
+を使えば簡単に読み込めるハズだった。</p>
+
+<figure><pre><code class="svg">&lt;svg width=&quot;640&quot; viewBox=&quot;0 0 600 400&quot;&gt;
+    &lt;use href=&quot;dfs.svg#slide1&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code></pre></figure>
+<p>しかし <code>symbol</code> 内の <code>foreignObject</code>
+要素がブラウザでは無視されるためこの手法は使えない。<br> 今回の実装では
+<code>symbol</code> の中身を頑張って読み込んでいる。</p>
+</div>
+<h2 id="各手法の比較">各手法の比較</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">PowerPoint</th>
+<th style="text-align: center;">HTML</th>
+<th style="text-align: center;">HTML + svg-slide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ブラウザとの親和性</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">◎</td>
+<td style="text-align: center;">◎</td>
+</tr>
+<tr class="even">
+<td>スライドの作成の容易さ</td>
+<td style="text-align: center;">◎</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">○</td>
+</tr>
+<tr class="odd">
+<td>n ページのスライド作成<br>に必要なファイル数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">n</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td>インパクトある図表作成の容易さ</td>
+<td style="text-align: center;">◎</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">△</td>
+</tr>
+<tr class="odd">
+<td>文書ライクな資料作成との相性</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;">〇</td>
+<td style="text-align: center;">◎</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vscode-拡張機能化">VSCode 拡張機能化</h2>
+<p>まだまだ対応が万全ではないが、VSCode 拡張機能化にも着手した。<br>
+Webアプリなので VSCode 拡張機能化のハードルも低い。</p>
+<div class="center"><img src="vscode.png" width="60%"></div>
+
+<h2 id="未実装の機能">未実装の機能</h2>
+<ul>
+<li>矢印</li>
+<li>範囲選択</li>
+<li>図の前後関係 (背面/全面) の並べ替え</li>
+<li>図形を切りの良い座標に align する</li>
+<li>…</li>
+</ul>
+<p>まだまだ機能は不十分。</p>
+<h2 id="余談-開発をやってみて">(余談) 開発をやってみて</h2>
+<ul>
+<li>アジャイル難しい (スプリントが短いから？)</li>
+<li>ブランチ管理…
+<ul>
+<li>綺麗なのは dev 切って feature 切って、各スプリントごとに dev を main
+にマージ (git-flow)</li>
+<li>今回はは dev を切らずに feature を切って main にマージしていた</li>
+<li>短いスプリントでは dev の必要性をあまり感じなかった</li>
+</ul></li>
+<li>テスト書くの大変
+<ul>
+<li>GUIな部分が多く、人力テストが精一杯</li>
+<li>(ただしテスト項目のドキュメント化忘れた)</li>
+</ul></li>
+</ul>
+
+<h2 id="まとめ">まとめ</h2>
+<p>コンセプト : WEB-friendly な資料作成</p>
+<ul>
+<li>ページの概念を持ったSVGエディタ/ビューアを作成した。</li>
+<li>SVGの仕様内でページの概念を実現</li>
+</ul>
+<div class="svg-slide" src="dfs.svg" width="400px"></div>

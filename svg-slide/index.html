@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Title</title>
+    <script src="bundle.js"></script>
+    <style>
+      svg {
+        border-width: 1px;
+        border: solid black;
+        /* width: 80%; */
+      }
+
+      .selected {
+        filter: drop-shadow(0px 0px 5px navy);
+      }
+    </style>
+  </head>
+
+  <body style="width: 80%; margin-left: auto; margin-right: auto">
+    <div id="io" style="margin-top: 10px; margin-bottom: 10px">
+      <input
+        id="input-file-open"
+        type="file"
+        accept="image/*"
+        style="display: none"
+        multiple
+      />
+      <button id="btn-open">Open Images</button>
+
+      <input
+        id="input-file-upload"
+        type="file"
+        accept="image/svg+xml"
+        style="display: none"
+      />
+      <button id="btn-load">Open</button>
+
+      <input
+        id="input-file-name"
+        type="text"
+        name="file-name"
+        value="slide"
+      />.svg
+      <button id="btn-save">Save</button>
+
+      <input
+        id="template-file-import"
+        type="file"
+        accept="image/svg+xml"
+        style="display: none"
+      />
+      <button id="btn-import-template">Import Template</button>
+
+      <button id="btn-add-to-template">Add to Template</button>
+      <button id="btn-export-templates">Export templates</button>
+    </div>
+    <div id="tool-buttons" style="margin-top: 10px; margin-bottom: 10px">
+      <button id="btn-add-page">+</button>
+      <button id="btn-delete-page">X</button>
+      <button id="btn-copy-page">C</button>
+      <button id="btn-prev-page">&lt;</button>
+      <button id="btn-next-page">&gt;</button>
+      <span style="margin: right 1ch left 1ch">|</span>
+      <button id="btn-rect">■</button>
+      <button id="btn-ellipse">●</button>
+      <button id="btn-triangle">▲</button>
+      <button id="btn-line">-</button>
+      <button id="btn-text">T</button>
+    </div>
+
+    <div style="display: flex">
+      <div id="canvas" style="margin-right: 0.5ch">
+        <svg id="svg-canvas" xmlns="http://www.w3.org/2000/svg"></svg>
+        <span id="page-number"></span>
+        <div id="inspector"></div>
+      </div>
+      <div
+        id="template-list"
+        style="
+          overflow-y: scroll;
+          height: 600px;
+          width: 300px;
+          border: solid 1px gray;
+          margin-left: 0.5ch;
+          padding: 1ch;
+        "
+      ></div>
+    </div>
+  </body>
+</html>
